@@ -1,0 +1,182 @@
+
+电子科技大学
+期 末 解 题 报 告
+
+
+
+
+
+
+课程： 《ACM-ICPC算法与程序设计》
+学院：  计算机科学与工程学院
+学号：	 2016060104030
+姓名：	 刘昕
+
+
+报告成绩：       教师签名：
+
+
+
+
+关于圆的面积并那些事
+计算机科学与工程学院 2016060104030 刘昕
+
+关键词：圆面积并、Simpson积分、面积“割补”
+题目背景
+　　在各大计算机比赛中往往会遇到各种求面积的题目，面积并是很常见的一类问题，比如矩形面积并，我们常用“扫描线”写，但这个面积并太特殊了！所有的矩形边长均与坐标轴平行，而且矩形是多边形，与曲线也有差距，所以本论文我们讨论圆的面积并。
+　　
+　　
+经典例题
+　　题目大意：平面上有n（n<=1000）个圆，定义k区域为平面上被恰好k个圆覆盖的部分面积。求k=1,2,...,n下对应面积大小，保留3位小数。
+　　
+　　样例输入：
+　　3
+　　0 0 1
+　　1 0 1
+　　1 1 1
+　　
+　　样例输出：
+　　[1] = 4.699
+　　[2] = 1.699
+　　[3] = 0.443
+　　
+　　
+问题分析
+　　对于普通的求圆并的题目，我们可以简单的用自适应Simpson通过积分的方式算出数值解，由于是曲线积分，精度误差还是客观存在的，虽然我们可以通过调小参数基本可以达到题目要求。同时这个算法的复杂度是不确定的，没法简单地套用，所以我们考虑另一种“稳定”复杂度的圆并算法，即
+　　
+　　对每个圆求出其他圆与他的交点，未被其他圆覆盖的部分圆弧和有向线段代表的面积总和就是答案。
+　　
+　　通过画图我们发现这个结论几乎是显然的。由此我们的得到了一个O(n^2 log n)的算法。
+　　那么仔细观察这两题，我们不妨大胆猜测，推广出这题的算法。
+　　
+　　
+算法介绍
+　　对于这道题，显然有圆上被覆盖k次的线段才对k区域有贡献，我们同分析所说，继续通过“割补”的方式求解。
+　　
+　　首先我们写了一个点类，便于二元运算。
+　　然后我们枚举两个圆，work函数用于求两个圆的交点，存储在c数组中。
+　　最后我们排序c数组，循环便利一遍，统计各个覆盖次数的面积。
+　　
+　　文末附程序。
+
+
+问题总结
+　　面积的“割补”在算曲线图形中意义重大，小学时我们就会通过拼拼凑凑计算一些稀奇古怪的面积，现在我们明白多边形的面积可以按边算对应贡献后，我们应该想到将常规曲线拆成数个多边形，最终达到简化计算的目的。
+　　
+
+2017.06.07
+
+
+
+
+*题目链接：http://www.spoj.com/problems/CIRUT/
+*题解链接：http://blog.csdn.net/u013593293/article/details/54934113
+*感谢网友aekdycoin的启发
+*附上cdoj账号：litter_star
+*codeforces账号：lx_ambulance
+*程序如下（已在spoj上提交通过）：
+
+
+
+
+
+#include <cmath>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+typedef long long LL;
+inline int read() {
+	int x=0,f=1; char ch=getchar();
+	while (ch<'0'||ch>'9') { if (ch=='-') f=-1; ch=getchar(); }
+	while (ch>='0'&&ch<='9') { x=x*10+ch-'0'; ch=getchar(); }
+	return x*f;
+}
+const int MAXN=1003;
+const double PI=3.1415926535897932384626433832795028841971693993,eps=1e-8;
+int n,m;
+double ans[MAXN][2],b[MAXN],R[MAXN];
+struct P{
+	double x,y;
+	P(double v=0,double u=0){ x=v; y=u; }
+	double len(){ return sqrt(x*x+y*y); }
+	P operator +(const P &E)const{ return P(x+E.x,y+E.y); }
+	P operator -(const P &E)const{ return P(x-E.x,y-E.y); }
+	P operator *(const double &z)const{ return P(x*z,y*z); }
+	P operator /(const double &z)const{ return P(x/z,y/z); }
+	double operator *(const P &E)const{ return x*E.x+y*E.y; }
+}a[MAXN];
+inline double cross(P p,P q){ return p.x*q.y-p.y*q.x; }
+inline double dist(P p,P q){ return sqrt((p.x-q.x)*(p.x-q.x)+(p.y-q.y)*(p.y-q.y)); }
+struct Data{
+	P ax; double x; int y;
+	bool operator <(const Data &E)const{ return x<E.x; }
+}c[MAXN*10];
+inline P rot(P p,double a){ return P(cos(a)*p.x-sin(a)*p.y,sin(a)*p.x+cos(a)*p.y); }
+inline double deg(P p){
+	double tmp=atan2(p.y,p.x);
+	return tmp<0?tmp+PI*2:tmp;
+}
+inline void work(P o1,P o2,double r1,double r2){
+	double s,p,h,alpha,tmp=dist(o1,o2);
+	p=(r1+r2+tmp)/2; s=sqrt(p*(p-r1)*(p-r2)*(p-tmp));
+	h=s*2/tmp; alpha=asin(h/r1);
+	if (r1*r1+tmp*tmp<r2*r2) alpha=PI-alpha;
+	c[++m].ax=rot(o2-o1,PI*2-alpha)/tmp*r1+o1; c[m].x=deg(c[m].ax-o1); c[m].y=1;
+	c[++m].ax=rot(o2-o1,alpha)/tmp*r1+o1; c[m].x=deg(c[m].ax-o1); c[m].y=-1;
+	if (c[m-1].x>c[m].x) {
+		c[++m].ax=o1+P(r1,0); c[m].x=0; c[m].y=1;
+		c[++m].ax=o1+P(r1,0); c[m].x=PI*2; c[m].y=-1;
+	}
+}
+int main() {
+	int i,j,k,l;
+	n=read();
+	for (i=1;i<=n;++i) { a[i].x=read(); a[i].y=read(); R[i]=read(); }
+	memset(b,0,sizeof(b));
+	for (i=1;i<=n;++i)
+		for (j=1;j<=n;++j)
+		if (i!=j&&dist(a[i],a[j])<=R[j]-R[i]) b[i]++;
+	memset(ans,0,sizeof(ans));
+	for (i=1;i<=n;++i) {
+		for (j=1,m=0;j<=n;++j)
+		if (i!=j&&dist(a[i],a[j])<R[i]+R[j]&&dist(a[i],a[j])>fabs(R[j]-R[i]))
+			work(a[i],a[j],R[i],R[j]);
+		c[++m].ax=a[i]+P(R[i],0); c[m].x=0; c[m].y=b[i]+1;
+		c[++m].ax=a[i]+P(R[i],0); c[m].x=PI*2; c[m].y=-b[i]-1;
+		sort(c+1,c+1+m);
+		/*printf("%d\n",i);
+		for (j=1;j<=m;++j) {
+			printf("%d %.3lf %d\n",j,c[j].x,c[j].y);
+			printf("(%.3lf,%.3lf)\n",c[j].ax.x,c[j].ax.y);
+		}*/
+		int sa=1,sb=0,sc;
+		for (j=1;j<=m;j=k+1) {
+			for (k=j;k<m&&fabs(c[k+1].x-c[j].x)<eps;++k);
+			for (l=j,sc=sb;l<=k;++l) sc+=c[l].y;
+			if (sc==sb&&k!=m) continue;
+			if (fabs(c[sa].x-c[j].x)>eps) {
+				ans[sb][0]+=cross(c[sa].ax,c[j].ax);
+				double tmp=c[j].x-c[sa].x;
+				ans[sb][1]+=R[i]*R[i]*(tmp-sin(tmp))/2;
+			}
+			sb=sc; sa=j;
+		}
+	}
+	//for (i=1;i<=n;++i) printf("%.3lf %.3lf %.3lf\n",ans[i][0],ans[i][1],fabs(ans[i][0])/2+ans[i][1]);
+	for (i=1;i<=n;++i) ans[i][0]=fabs(ans[i][0])/2+ans[i][1];
+	for (i=1;i<=n;++i) printf("[%d] = %.3lf\n",i,ans[i][0]-ans[i+1][0]);
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
