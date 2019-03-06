@@ -25,7 +25,7 @@ double Cross(Vector v1,Vector v2){ return v1.x*v2.y-v1.y*v2.x; }
 double Dot(Point a,Point b,Point o){ return (a.x-o.x)*(b.x-o.x)+(a.y-o.y)*(b.y-o.y); }
 double Dot(Vector v1,Vector v2){ return v1.x*v2.x+v1.y*v2.y; }
 //向量旋转（逆时针，弧度）
-inline Point Rot(Point p,double a){ return Point(cos(a)*p.x-sin(a)*p.y,sin(a)*p.x+cos(a)*p.y); }
+inline Vector Rot(Vector p,double a){ return Vector(cos(a)*p.x-sin(a)*p.y,sin(a)*p.x+cos(a)*p.y); }
 //向量极角（弧度）
 double Deg(Point p){ double tmp=atan2(p.y,p.x); return tmp<0?tmp+PI*2:tmp; }
 //点p在直线上的投影，要求|v|不为0
@@ -39,14 +39,15 @@ double pointToSeg(Point s1,Point s2, Point p){
 }
 //点到直线的距离
 double pointToLine(Point p,Point o,Vector v){ return fabs(Cross(p-o,v))/v.len(); }
-//线段是否相交
-inline bool segIntersect(Point a,Point b,Point c,Point d){
-	if (max(a.x,b.x)<min(c.x,d.x)||min(a.x,b.x)>max(c.x,d.x)) return false;
-	if (max(a.y,b.y)<min(c.y,d.y)||min(a.y,b.y)>max(c.y,d.y)) return false;
+//线段是否相交，0为不相交，1为严格相交且交点不在线段端点上，2表示交点为某线段端点，3为线段平行且部分重合
+inline int segIntersect(Point a,Point b,Point c,Point d){
+	if (max(a.x,b.x)<min(c.x,d.x)||min(a.x,b.x)>max(c.x,d.x)) return 0;
+	if (max(a.y,b.y)<min(c.y,d.y)||min(a.y,b.y)>max(c.y,d.y)) return 0;
 	double x=Cross(a-b,c-b),y=Cross(a-b,d-b),z=Cross(c-d,a-d),w=Cross(c-d,b-d);
-	if (sgn(x)==0&&sgn(y)==0) return false;
-	if (sgn(z)==0) return true; else if (sgn(w)==0) return false;
-	if (sgn(x)*sgn(y)<=0&&sgn(z)*sgn(w)<=0) return true; else return false;
+	if (sgn(x)==0&&sgn(y)==0) return 3;
+	if (sgn(x)*sgn(y)<0&&sgn(z)*sgn(w)<0) return 1;
+	if (sgn(x)*sgn(y)<=0&&sgn(z)*sgn(w)<=0) return 2;
+	return 0;
 }
 //凸包，相邻边不平行
 int ConvexHull(Point p[],int n,Point q[]){
