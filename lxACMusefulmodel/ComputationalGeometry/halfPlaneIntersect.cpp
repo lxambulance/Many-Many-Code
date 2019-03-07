@@ -6,8 +6,10 @@ Point lI(line l1,line l2){ return lineIntersect(l1.p,l1.v,l2.p,l2.v); }
 bool onRight(Point p,line l){ return sgn(l.v*(p-l.p))<0; }
 //相同极角保留最靠左的，排序中体现为相同极角的第一个
 int cmp(line l1,line l2){
-	double tmp1=Deg(l1.v),tmp2=Deg(l2.v);
-	return (sgn(tmp1-tmp2)==0&&sgn(l1.v*(l2.p-l1.p))<0)||tmp1<tmp2;
+	int f1=(l1.v.x>=-eps),f2=(l2.v.x>=-eps);
+	if (f1!=f2) return f1==1;
+	int tmp=sgn(l1.v*l2.v);
+	return (tmp==0&&sgn(l1.v*(l2.p-l1.p))<0)||tmp>0;
 }
 void checkCounterclockwise(Point p[],int n){
 	double area=0;
