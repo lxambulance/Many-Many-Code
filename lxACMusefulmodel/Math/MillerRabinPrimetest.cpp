@@ -1,4 +1,4 @@
-ll add(ll a,ll b,ll c) {
+ll qmul(ll a,ll b,ll c) {
 	ll ans=0;
 	while (b) {
 		if (b&1) {
@@ -10,11 +10,11 @@ ll add(ll a,ll b,ll c) {
 	}
 	return ans;
 }
-ll power(ll a,ll b,ll c) {
+ll qpow(ll a,ll b,ll c) {
 	ll ans=1;
 	while (b) {
-		if (b&1) ans=add(ans,a,c);
-		a=add(a,a,c); b>>=1;
+		if (b&1) ans=qmul(ans,a,c);
+		a=qmul(a,a,c); b>>=1;
 	}
 	return ans;
 }
@@ -22,8 +22,8 @@ bool Miller_Rabin_test(ll a,ll b,ll n) {
 	if (n==2) return true;
 	else if (n==a||!(n&1)) return false;
 	while (!(b&1)) b>>=1;
-	ll tmp=power(a,b,n);
-	while (b!=n-1&&tmp!=n-1&&tmp!=1) { tmp=add(tmp,tmp,n); b<<=1; }
+	ll tmp=qpow(a,b,n);
+	while (b!=n-1&&tmp!=n-1&&tmp!=1) { tmp=qmul(tmp,tmp,n); b<<=1; }
 	return (tmp==n-1)||((b&1)&&(tmp==1));
 }
 //{2,7,61}4759123141

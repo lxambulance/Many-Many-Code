@@ -1,14 +1,15 @@
 ll gcd(ll a,ll b){ return b==0?a:gcd(b,a%b); }
 ll pollard_rho(ll x,int c){
-    ll a=2,b=2;
-    do{
-        a=(qmul(a,a,x)+c)%x;
-        b=(qmul(b,b,x)+c)%x;
-        b=(qmul(b,b,x)+c)%x;
-        ll p=gcd(abs(a-b),x);
-        if (p!=1&&p!=x) return p;
-    }while(a!=b);
-    return x;
+    ll y=(rand()<<16|rand())%x,z=y;
+	ll i=1,j=2;
+    while (1) {
+		i++;
+		z=(qmul(z,z,x)+c)%x;
+		ll p=gcd(x,abs(z-y));
+		if (p!=1&&p!=x) return p;
+		if (z==y) return x;
+		if (i==j) j<<=1,y=z;
+	}
 }
 vector<ll> ans;
 void factorFind(ll x,int c){
