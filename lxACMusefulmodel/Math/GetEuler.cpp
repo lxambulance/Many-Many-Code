@@ -1,4 +1,4 @@
-const int MAXN=10000005;
+const int MAXN=10000007;
 bool b[MAXN];
 int tot,phi[MAXN],prime[MAXN];
 void get_prime_phi(int n) {

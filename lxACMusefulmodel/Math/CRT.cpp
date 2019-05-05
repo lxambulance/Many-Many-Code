@@ -20,7 +20,6 @@ Mi=pi(mj) [i!=j]
 
 gcd(Mi,mi)=1 --> Mipi+miqi=1
 Let ei=Mipi ,then ei={0(%mj)[i!=j],1(%mj)[i==j]}
-
 ans0=(e0a0+e1a1+e2a2+...+en-1an-1)%pi(mi)
-
 */
+

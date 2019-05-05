@@ -1,4 +1,4 @@
-const int MAXM=10000005;
+const int MAXM=10000007;
 bool b[MAXM];
 int tot,prime[MAXM];
 void get_prime(int n) {
