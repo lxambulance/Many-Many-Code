@@ -1,5 +1,6 @@
 struct Trie{
-	int size,root,nt[MAXN][26],fl[MAXN],g[MAXN],ed[MAXN];
+	int size,root,nt[MAXN][26],fl[MAXN],ed[MAXN],g[MAXN];
+	// g数组用于加速fail指针跳跃，快速定位到最近的终结点
 	void clear(){
 		size=root=0;
 		memset(nt,-1,sizeof(nt));
@@ -11,7 +12,7 @@ struct Trie{
 			if (!~nt[now][s[i]-'a']) nt[now][s[i]-'a']=++size;
 			now=nt[now][s[i]-'a'];
 		}
-		ed[now]=1; c[id]=len; M[now].push_back(id);
+		ed[now]=id;
 	}
 	void build(){
 		queue<int> Q;
@@ -21,8 +22,6 @@ struct Trie{
 		while (!Q.empty()) {
 			int x=Q.front(); Q.pop();
 			FOR(k,0,25) {
-				int tmp=nt[fl[x]][k];
-				if (!ed[tmp]) tmp=fl[tmp];
 				if (!~nt[x][k]) nt[x][k]=nt[fl[x]][k];
 				else {
 					fl[nt[x][k]]=nt[fl[x]][k],Q.push(nt[x][k]);
@@ -31,11 +30,6 @@ struct Trie{
 				}
 			}
 		}
-		// FOR(i,0,size) {
-			// printf("%d:f=%d\n",i,fl[i]);
-			// for (int j=0;j<M[i].size();++j) printf("%d ",M[i][j]);
-			// printf("\n");
-		// }
 	}
 	void query(char s[]){
 		int len=strlen(s+1),now=root;
@@ -43,11 +37,7 @@ struct Trie{
 			now=nt[now][s[i]-'a'];
 			int tmp=now;
 			while (tmp!=root) {
-				for (int k=0;k<M[tmp].size();++k) {
-					int x=M[tmp][k];
-					//printf("i=%d x=%d a[x]=%d c[x]=%d\n",i,x,a[x],c[x]);
-					if (a[x]<=i-c[x]) b[x]++,a[x]=i;
-				}
+				//...
 				tmp=fl[tmp];
 			}
 		}
