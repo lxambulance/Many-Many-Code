@@ -1,12 +1,12 @@
 namespace SAM{
-	struct Node {
+	struct Node{
 		int next[26],fail,len;
-		void init() { fail=-1; len=0; memset(next,-1,sizeof(next)); }
+		void init(){ fail=-1; len=0; memset(next,-1,sizeof(next)); }
 	}x[MAXN<<1];
 	int size,last;
-	void init() { size=last=0; x[size++].init(); }
-	int newnode() { x[size].init(); return size++; }
-	void add(int c) {
+	void init(){ size=last=0; x[size++].init(); }
+	int newnode(){ x[size].init(); return size++; }
+	void add(int c){
 		int p=newnode(),tmp=last;
 		x[p].len=x[last].len+1;
 		for (;~tmp&&!~x[tmp].next[c];tmp=x[tmp].fail) x[tmp].next[c]=p;
