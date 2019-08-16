@@ -3,7 +3,7 @@ int CRT(int a[],int m[],int n) {
 	for (i=1;i<=n;i++) M*=m[i];
 	for (i=1;i<=n;i++) {
 		int x,y,Mi=M/m[i];
-		extend_Euclid(Mi,m[i],x,y);
+		extend_gcd(Mi,m[i],x,y);
 		ans=(ans+Mi*x*a[i])%M;
 	}
 	if (ans<0) ans+=M;

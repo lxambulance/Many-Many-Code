@@ -7,10 +7,13 @@ using namespace std;
 typedef long long ll;
 
 class hash{
+private:
+	static const ll MOD=100007,lx1=19260817,lx2=997244353;
+	ll a[MOD+100],v[MOD+100];
 public:
 	hash() { memset(a,0xff,sizeof(a)); }
 	int locate(ll x) {
-		ll l=x%MOD;
+		ll l=((x*lx1)^lx2)%MOD;
 		while(a[l]!=x&&a[l]!=-1) l=(l+1)%MOD;
 		return l;
 	}
@@ -20,9 +23,6 @@ public:
 	}
 	ll get(ll x) { ll l=locate(x); return a[l]==x?v[l]:-1; }
 	void clear() { memset(a,0xff,sizeof(a)); }
-private:
-	static const ll MOD=100007;
-	ll a[MOD+100],v[MOD+100];
 }S;
 ll exgcd(ll a,ll b,ll &x,ll &y) {
 	ll t,ret;
