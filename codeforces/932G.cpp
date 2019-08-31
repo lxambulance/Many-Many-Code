@@ -13,36 +13,36 @@ inline int read(){
 	return x*f;
 }
 
-const int MAXN=1000006,INF=1e9;
-int flag;
-vector< PII > ans;
+const int MAXN=1000006,Mo=1e9+7;
 namespace PAM{
 	static const int H=26;
 	int last,Slen,size;
 	int nt[MAXN][H],fl[MAXN],len[MAXN],S[MAXN];
-	int seriesLink[MAXN],f[MAXN][2],g[MAXN][2];
+	int seriesLink[MAXN],f[MAXN],g[MAXN];
 	int newnode(int l){
 		FOR(i,0,H-1) nt[size][i]=0;
-		len[size]=l;
-		return size++;
+		len[size]=l; return size++;
 	}
 	inline int diff(int x){ return len[x]-len[fl[x]]; }
 	void init(){
 		size=last=Slen=0;
 		newnode(0),newnode(-1);
 		S[Slen]=-1,fl[0]=1,fl[1]=1;
-		f[0][0]=0,g[0][0]=g[1][0]=INF;
+		f[0]=1,g[0]=g[1]=0;
 	}
 	int getFail(int x){
 		while (S[Slen-len[x]-1]!=S[Slen]) x=fl[x];
 		return x;
 	}
 	inline void update(int x[],int y,int z){ if (x[0]>y) x[0]=y,x[1]=z; }
-	PII getMin(int x){
+	int getSum(int x){
 		int y=Slen-(len[seriesLink[x]]+diff(x));
-		g[x][0]=f[y][0],g[x][1]=y;
-		if (diff(x)==diff(fl[x])) update(g[x],g[fl[x]][0],g[fl[x]][1]);
-		return mp(g[x][0]+1,g[x][1]);
+		g[x]=f[y];
+		if (diff(x)==diff(fl[x])) {
+			g[x]+=g[fl[x]];
+			if (g[x]>=Mo) g[x]-=Mo;
+		}
+		return g[x];
 	}
 	void add(int c){
 		S[++Slen]=(c-='a');
@@ -56,15 +56,21 @@ namespace PAM{
 				seriesLink[now]=fl[now];
 		}
 		last=nt[cur][c];
-		f[Slen][0]=INF,g[last][0]=INF;
+		f[Slen]=0;
+		int tmp=0;
 		for (int now=last;len[now]>0;now=seriesLink[now]) {
-			PII mf=getMin(now);
-			if (!(Slen&1)) update(f[Slen],mf.first,mf.second);
+			int gS=getSum(now);
+			if (!(Slen&1)) {
+				tmp+=gS;
+				if (tmp>=Mo) tmp-=Mo;
+			}
 		}
-		if (Slen>1&&S[Slen]==S[Slen-1]&&!(Slen&1))
-			update(f[Slen],f[Slen-2][0],Slen-2);
+		f[Slen]=tmp;
 	}
 	void print(){
+		FOR(i,1,Slen) putchar('a'+S[i]);
+		puts("");
+		FOR(i,1,Slen) printf("%d%c",f[i]," \n"[i==Slen]);
 		FOR(i,0,size-1) {
 			printf("%d:fail[%d]=%d,len[%d]=%d\n",i,i,fl[i],i,len[i]);
 			FOR(j,0,H-1)
@@ -72,43 +78,21 @@ namespace PAM{
 			puts("");
 		}
 	}
-	void work(){
-		//FOR(i,1,Slen) printf("%c",S[i]+'a');
-		//puts("");
-		//FOR(i,1,Slen) printf("%d:%d %d\n",i,f[i][0],f[i][1]);
-		flag=1;
-		if (f[Slen][0]==INF) { flag=0; return; }
-		int now=Slen;
-		while (now>0) {
-			int tmp=f[now][1];
-			if (now-tmp>2) ans.pb(mp((tmp+2)/2,(now+1)/2));
-			now=tmp;
-		}
-	}
 };
-int n,m,q;
-char s[MAXN],t[MAXN];
+int n,m;
+char s[MAXN];
 int main(){
-	scanf("%s%s",s+1,t+1); n=strlen(s+1);
+	scanf("%s",s+1); n=strlen(s+1);
 	PAM::init();
-	FOR(i,1,n) PAM::add(s[i]),PAM::add(t[i]);
+	FOR(i,1,n/2) PAM::add(s[i]),PAM::add(s[n+1-i]);
 	//PAM::print();
-	PAM::work();
-	if (!flag) { puts("-1"); return 0; }
-	int tot=ans.size();
-	printf("%d\n",tot);
-	FOR(i,0,tot-1) printf("%d %d\n",ans[i].first,ans[i].second);
+	printf("%d\n",PAM::f[n]);
 	
 	return 0;
 }
 
 /*
-abcxxxdef
-cbaxxxfed
-ccccbcabaabbcbbaaabbcbcacbcbbbccaccaaccacabacbcbac
-cbcbbaaabbcbbaabacbccccaccbbbcbcaaccaaccacbcabcbca
-baabbababbbaabbbabbaaabbbbbbbaabbbabaabbbbbbaaabba
-abbaabbabbbabbbabaaabbabbbbbaabbbbabbbbaabbbaaabba
-cf 906E
+abcdcdab
+
 */
 
