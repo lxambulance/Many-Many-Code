@@ -1,5 +1,5 @@
 #define sqr(x) ((x)*(x))
-const double eps=1e-8,INF=1e20,PI=3.141592653589793238462;
+const double eps=1e-8,INF=1e20,PI=acos(-1.0);
 inline int sgn(double x){ if (fabs(x)<=eps) return 0; return x>0?1:-1; }
 struct Point{
 	double x,y;
@@ -52,16 +52,12 @@ inline int segIntersect(Point a,Point b,Point c,Point d){
 //凸包，相邻边不平行
 int ConvexHull(Point p[],int n,Point q[]){
 	sort(p+1,p+n+1);
-	int i,m=0;
-	for (i=1;i<=n;++i) {
-		while (m>1&&Cross(q[m],p[i],q[m-1])<=eps) m--;
-		q[++m]=p[i];
-	}
+	int m=0;
+	for (int i=1;i<=n;++i)
+		{ for (;m>1&&Cross(q[m],p[i],q[m-1])<=eps;m--); q[++m]=p[i]; }
 	int k=m;
-	for (i=n-1;i>0;--i) {
-		while (m>k&&Cross(q[m],p[i],q[m-1])<=eps) m--;
-		q[++m]=p[i];
-	}
+	for (int i=n-1;i>0;--i)
+		{ for (;m>k&&Cross(q[m],p[i],q[m-1])<=eps;m--); q[++m]=p[i]; }
 	if (n>1) m--;
 	return m;
 }
