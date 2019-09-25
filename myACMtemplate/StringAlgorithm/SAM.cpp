@@ -33,3 +33,4 @@ namespace SAM{
 		return ans;
 	}
 };
+//parent树上的操作首先考虑能否转成topo序下的DP，不行再考虑dfs搜索
