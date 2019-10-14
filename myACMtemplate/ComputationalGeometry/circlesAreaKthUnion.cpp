@@ -1,18 +1,3 @@
-#include <cmath>
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
-#include <iostream>
-#include <algorithm>
-using namespace std;
-typedef long long LL;
-inline int read() {
-	int x=0,f=1; char ch=getchar();
-	while (ch<'0'||ch>'9') { if (ch=='-') f=-1; ch=getchar(); }
-	while (ch>='0'&&ch<='9') { x=x*10+ch-'0'; ch=getchar(); }
-	return x*f;
-}
-
 const int MAXN=1003;
 const double PI=3.1415926535897932384626433832795028841971693993,eps=1e-8;
 int n,m;
@@ -51,9 +36,6 @@ inline void work(P o1,P o2,double r1,double r2){
 	}
 }
 int main() {
-	//freopen("1.in","r",stdin);
-	//freopen("2.out","w",stdout);
-	
 	int i,j,k,l;
 	n=read();
 	for (i=1;i<=n;++i) { a[i].x=read(); a[i].y=read(); R[i]=read(); }
@@ -91,17 +73,5 @@ int main() {
 	for (i=1;i<=n;++i) ans[i][0]=fabs(ans[i][0])/2+ans[i][1];
 	for (i=1;i<=n;++i) printf("[%d] = %.3lf\n",i,ans[i][0]-ans[i+1][0]);
 	
-	//fclose(stdin);
-	//fclose(stdout);
 	return 0;
 }
-
-/*
-5
-3 0 3
-4 3 5
-1 2 4
-4 3 5
-1 4 4
-
-*/
