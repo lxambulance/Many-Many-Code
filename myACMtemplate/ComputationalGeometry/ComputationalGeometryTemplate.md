@@ -327,6 +327,387 @@ Point OrthoCenter(Point A,Point B,Point C)
 }
 ```
 
+### 折纸问题（普通）
+
+```C++
+const int MAXN=10004;
+#define mp(x,y) ((1ll*(x))<<32|(y))
+map<ll,int> E;
+Point p[MAXN],p1,p2;
+int psize,Psize,lastp,lastP,f[MAXN];
+struct Polygon{
+	int pid[26],tot;
+	Polygon(){ memset(pid,0,sizeof(pid)); tot=0; }
+	void add(int id){ pid[++tot]=id; }
+	void init(){ pid[0]=pid[tot],pid[tot+1]=pid[1]; }
+	void print(){
+		printf("{");
+		FOR(i,1,tot) printf("%d ",pid[i]);
+		printf("}\n");
+	}
+}P[MAXN];
+void addPoint(Point p0){ p[++psize]=p0; }
+int checkEdge(int id1,int id2){
+	if (E.find(mp(id1,id2))!=E.end()) return E[mp(id1,id2)];
+	addPoint(lineIntersect(p[id1],p[id2]-p[id1],p1,p2));
+	return E[mp(id1,id2)]=E[mp(id2,id1)]=psize;
+}
+void init(){
+	psize=0,Psize=1;
+	addPoint(Point(0,0)),addPoint(Point(1,0));
+	addPoint(Point(1,1)),addPoint(Point(0,1));
+	P[1].tot=4;
+	FOR(i,1,4) P[1].pid[i]=i;
+	P[1].init();
+}
+int s[26];
+void reflection(Polygon &P){
+	FOR(i,1,P.tot) f[P.pid[i]]=1;
+}
+void fold(int x){
+	int num1=0,num2=0;
+	FOR(I,1,P[x].tot) {
+		s[I]=sgn(Cross(p[P[x].pid[I]]-p1,p2));
+		if (s[I]>0) num1++; else if (s[I]<0) num2++;
+	}
+	if (num1==0) {
+		reflection(P[x]);
+		FOR(i,1,P[x].tot/2) swap(P[x].pid[i],P[x].pid[P[x].tot+1-i]);
+		P[x].init();
+		return;
+	}
+	if (num2==0) return;
+	Polygon P1,P2;
+	FOR(I,1,P[x].tot) {
+		int i=I,j=(I+1>P[x].tot?1:I+1);
+		if (s[i]==0) P1.add(P[x].pid[I]),P2.add(P[x].pid[I]);
+		else if (s[i]>0) {
+			P1.add(P[x].pid[I]);
+			if (s[j]<0) {
+				int id=checkEdge(P[x].pid[I],P[x].pid[I+1]);
+				P1.add(id),P2.add(id);
+			}
+		}
+		else {
+			P2.add(P[x].pid[I]);
+			if (s[j]>0) {
+				int id=checkEdge(P[x].pid[I],P[x].pid[I+1]);
+				P1.add(id),P2.add(id);
+			}
+		}
+	}
+	reflection(P2);
+	FOR(i,1,P2.tot/2) swap(P2.pid[i],P2.pid[P2.tot+1-i]);
+	P1.init(),P2.init();
+	P[x]=P1; P[++Psize]=P2;
+}
+void dfs(int x){
+	f[x]=1;
+	FOR(I,1,P[x].tot) {
+		int i=I,j=I+1;
+		if (sgn(Cross(p[P[x].pid[i]]-p1,p2))==0&&sgn(Cross(p[P[x].pid[j]]-p1,p2))==0) continue;
+		FOR(y,1,Psize)
+		if (!f[y]) {
+			FOR(J,1,P[y].tot)
+			if (P[x].pid[i]==P[y].pid[J]&&P[x].pid[j]==P[y].pid[J+1]) { dfs(y); break; }
+		}
+	}
+}
+int cut(){
+	FOR(i,1,Psize) f[i]=0;
+	int ans=0;
+	FOR(i,1,Psize) if (!f[i]) dfs(i),ans++;
+	return ans;
+}
+int main(){
+	int T=read();
+	while (T--) {
+		init();
+		int n=read()+1;
+		while (n--) {
+			scanf("%lf%lf%lf%lf",&p1.x,&p1.y,&p2.x,&p2.y);
+			p2=p2-p1;
+			lastP=Psize,lastp=psize;
+			E.clear();
+			FOR(i,1,lastp) f[i]=0;
+			FOR(i,1,lastP) fold(i);
+			FOR(i,1,lastp)
+			if (f[i]&&sgn(Cross(p[i]-p1,p2))) {
+				Point p0=Project(p[i],p1,p2);
+				p[i]=p0*2-p[i];
+			}
+			// FOR(i,1,lastp) printf("%d%c",f[i]," \n"[i==lastp]);
+			// FOR(i,1,psize) printf("p[%d]:(%.8f,%.8f)\n",i,p[i].x,p[i].y);
+			// FOR(i,1,Psize) {
+				// printf("Polygon[%d]:",i);
+				// P[i].print();
+			// }
+		}
+		printf("%d\n",cut());
+	}
+	return 0;
+}
+
+/*
+4
+1
+0 0.5 1 1
+0.5 0 0.5 1
+1
+0 0.5 1 1
+0 0.4 1 0.4
+0
+0 0 1 0
+1
+0.30 0.10 0.00 0.90
+0.70 0.70 0.50 0.40
+
+*/
+
+```
+
+### 折纸问题（进阶）
+
+```C++
+const int MAXN=10004;
+#define mix(x,y) ((1ll*(x))<<32|(y))
+map<ll,int> E;
+Point p[MAXN],p1,p2;
+int psize,Psize,lastp,lastP,f[MAXN],g[MAXN],h[MAXN];
+struct Polygon{
+	int pid[26],tot,depth;
+	Polygon(){ memset(pid,0,sizeof(pid)); depth=tot=0; }
+	bool operator <(const Polygon &Q)const{ return depth<Q.depth; }
+	void print(){
+		printf("{");
+		FOR(i,1,tot) printf("%d ",pid[i]);
+		printf("}\n");
+	}
+	void add(int id){ pid[++tot]=id; }
+	void init(){ pid[0]=pid[tot],pid[tot+1]=pid[1]; }
+	int checkIn(Point O){
+		FOR(i,1,tot) if (sgn(Cross(p[pid[i]],p[pid[i+1]],O))==0) return -1;
+		Point OO=O+Point(INF,0);
+		int num=0;
+		FOR(i,1,tot) {
+			int si=segIntersect(O,OO,p[pid[i]],p[pid[i+1]]);
+			if (si==1) num++;
+			else if (si==2) {
+				if (sgn(Cross(p[pid[i]],O,OO))<0) num++;
+				else if (sgn(Cross(p[pid[i+1]],O,OO))<0) num++;
+			}
+		}
+		return (num&1);
+	}
+}P[MAXN];
+//map<ll,int> cover;
+int s[26];
+int checkIntersect(int x,int y){
+	//if (cover.find(mix(x,y))!=cover.end()) return cover[mix(x,y)];
+	// printf("%d<--->%d\n",x,y);
+	// FOR(i,1,P[x].tot) printf("%d%c",P[x].pid[i]," \n"[i==P[x].tot]);
+	// FOR(i,1,P[y].tot) printf("%d%c",P[y].pid[i]," \n"[i==P[y].tot]);
+	FOR(i,1,P[x].tot) {
+		int num=0;
+		FOR(j,1,P[y].tot)
+		if (sgn(Cross(p[P[y].pid[j]],p[P[x].pid[i+1]],p[P[x].pid[i]]))>=0) num++;
+		if (num==P[y].tot) return 0;//cover[mix(x,y)]=cover[mix(y,x)]=0;
+	}
+	swap(x,y);
+	FOR(i,1,P[x].tot) {
+		int num=0;
+		FOR(j,1,P[y].tot)
+		if (sgn(Cross(p[P[y].pid[j]],p[P[x].pid[i+1]],p[P[x].pid[i]]))>=0) num++;
+		if (num==P[y].tot) return 0;//cover[mix(x,y)]=cover[mix(y,x)]=0;
+	}
+	return 1;//cover[mix(x,y)]=cover[mix(y,x)]=1;
+}
+void addPoint(Point p0){ p[++psize]=p0; }
+void init(){
+	psize=0,Psize=1;
+	addPoint(Point(0,0)),addPoint(Point(100,0));
+	addPoint(Point(100,100)),addPoint(Point(0,100));
+	P[1].tot=4,P[1].depth=1;
+	FOR(i,1,4) P[1].pid[i]=i;
+	P[1].init();
+	memset(f,0,sizeof(f));
+}
+int checkEdge(int id1,int id2){
+	if (E.find(mix(id1,id2))!=E.end()) return E[mix(id1,id2)];
+	addPoint(lineIntersect(p[id1],p[id2]-p[id1],p1,p2));
+	return E[mix(id1,id2)]=E[mix(id2,id1)]=psize;
+}
+void cut(int x){
+	int num1=0,num2=0;
+	FOR(I,1,P[x].tot) {
+		s[I]=sgn(Cross(p[P[x].pid[I]]-p1,p2));
+		if (s[I]>0) num1++; else if (s[I]<0) num2++;
+	}
+	if (num1==0||num2==0) return;
+	Polygon P1,P2;
+	FOR(I,1,P[x].tot) {
+		int i=I,j=(I+1>P[x].tot?1:I+1);
+		if (s[i]==0) P1.add(P[x].pid[I]),P2.add(P[x].pid[I]);
+		else if (s[i]>0) {
+			P1.add(P[x].pid[I]);
+			if (s[j]<0) {
+				int id=checkEdge(P[x].pid[I],P[x].pid[I+1]);
+				P1.add(id),P2.add(id);
+			}
+		}
+		else {
+			P2.add(P[x].pid[I]);
+			if (s[j]>0) {
+				int id=checkEdge(P[x].pid[I],P[x].pid[I+1]);
+				P1.add(id),P2.add(id);
+			}
+		}
+	}
+	P1.init(),P2.init();
+	P[x]=P1; P[++Psize]=P2;
+	P[x].depth=P[Psize].depth=1;
+	FOR(y,1,Psize) {
+		if (y==Psize||y>=x&&y<=lastP) continue;
+		if (checkIntersect(x,y)) P[x].depth=max(P[x].depth,P[y].depth+1);
+		if (checkIntersect(Psize,y)) P[Psize].depth=max(P[Psize].depth,P[y].depth+1);
+	}
+}
+void dfs(int x){
+	// printf("%d st\n",x);
+	FOR(i,1,P[x].tot) g[P[x].pid[i]]=1;
+	f[x]=1;
+	FOR(y,1,Psize)
+	if (!f[y]&&P[y].depth>P[x].depth&&checkIntersect(y,x)) dfs(y);
+	FOR(i,1,P[x].tot) {
+		if (sgn(Cross(p[P[x].pid[i]]-p1,p2))==0&&sgn(Cross(p[P[x].pid[i+1]]-p1,p2))==0) continue;
+		FOR(y,1,Psize)
+		if (!f[y]) {
+			FOR(j,1,P[y].tot)
+			if ((P[x].pid[i]==P[y].pid[j]&&P[x].pid[i+1]==P[y].pid[j+1])
+			  ||(P[x].pid[i]==P[y].pid[j+1]&&P[x].pid[i+1]==P[y].pid[j])) { dfs(y); break; }
+		}
+	}
+	// printf("%d ed\n",x);
+}
+#define pb push_back
+#define mp make_pair
+#define fi first
+#define se second
+#define PII pair<int,int>
+vector<PII > l;
+int main(){
+	int n;
+	while (n=read()) {
+		init();
+		while (n--) {
+			Point A,B;
+			A.x=read(),A.y=read(),B.x=read(),B.y=read();
+			p1=(A+B)/2;
+			p2=Rot(B-A,PI/2);
+			lastP=Psize,lastp=psize;
+			E.clear(); //cover.clear();
+			FOR(i,1,lastP) cut(i);
+			int root=0,tmp=0;
+			FOR(i,1,Psize)
+			if (P[i].checkIn(A)&&tmp<P[i].depth) tmp=P[i].depth,root=i;
+			FOR(i,1,Psize) f[i]=0;
+			FOR(i,1,psize) g[i]=0;
+			dfs(root);
+			// puts("prepare");
+			// printf("nowroot=%d\n",root);
+			// FOR(i,1,psize) printf("%d%c",g[i]," \n"[i==psize]);
+			// FOR(i,1,Psize) printf("%d%c",f[i]," \n"[i==Psize]);
+			// FOR(i,1,psize) printf("p[%d]:(%.8f,%.8f)\n",i,p[i].x,p[i].y);
+			// FOR(i,1,Psize) {
+				// printf("Polygon[%d] depth=%d:",i,P[i].depth);
+				// P[i].print();
+			// }
+			// puts("main");
+			FOR(i,1,psize)
+			if (g[i]&&sgn(Cross(p[i]-p1,p2))) {
+				Point tmp=Project(p[i],p1,p2);
+				p[i]=tmp*2-p[i];
+			}
+			// FOR(i,1,psize) printf("p[%d]:(%.8f,%.8f)\n",i,p[i].x,p[i].y);
+			l.resize(0);
+			FOR(i,1,Psize)
+			if (f[i]) {
+				l.pb(mp(P[i].depth,i));
+				FOR(j,1,P[i].tot/2) swap(P[i].pid[j],P[i].pid[P[i].tot+1-j]);
+				P[i].init();
+			}
+			sort(l.begin(),l.end());
+			int top=l.size();
+			//cover.clear();
+			while (top--) {
+				int x=l[top].se;
+				// printf("%d\n",x);
+				P[x].depth=1;
+				FOR(i,1,Psize)
+				if (!f[i]&&checkIntersect(x,i)) P[x].depth=max(P[x].depth,P[i].depth+1);
+				f[x]=0;
+			}
+			// FOR(i,1,Psize) {
+				// printf("Polygon[%d] depth=%d:",i,P[i].depth);
+				// P[i].print();
+			// }
+			sort(P+1,P+1+Psize);
+		}
+		Point H; H.x=read(),H.y=read();
+		int ans=0;
+		FOR(i,1,Psize) if (P[i].checkIn(H)) ans++;
+		printf("%d\n",ans);
+	}
+	return 0;
+}
+
+/*
+2
+90 90 80 20
+80 20 75 50
+50 35
+2
+90 90 80 20
+75 50 80 20
+55 20
+3
+5 90 15 70
+95 90 85 75
+20 67 20 73
+20 75
+3
+5 90 15 70
+5 10 15 55
+20 67 20 73
+75 80
+8
+1 48 1 50
+10 73 10 75
+31 87 31 89
+91 94 91 96
+63 97 62 96
+63 80 61 82
+39 97 41 95
+62 89 62 90
+41 93
+5
+2 1 1 1
+-95 1 -96 1
+-190 1 -191 1
+-283 1 -284 1
+-373 1 -374 1
+-450 1
+2
+77 17 89 8
+103 13 85 10
+53 36
+0
+
+*/
+
+```
+
+
 ## 三维几何
 
 ### 三维点类（常用）
