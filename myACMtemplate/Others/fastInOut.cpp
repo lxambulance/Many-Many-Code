@@ -69,4 +69,3 @@ struct Quick_Out{
 		write();
 	}
 }Out;
-
