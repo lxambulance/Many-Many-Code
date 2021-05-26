@@ -1,0 +1,4 @@
+GET /announce?info_hash=%acK%9f%aeDh%2c%18q%1b%c0%989W%83%c1%18%3b%fcH&peer_id=ABCDEFGHIJKLMNOPQRST&port=6881&uploaded=0&downloaded=0&left=416923528&event=started&compact=1 HTTP/1.1
+Host: 193.70.85.1:7777
+Accept: */*
+Connection: Close

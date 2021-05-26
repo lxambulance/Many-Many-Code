@@ -1,0 +1,92 @@
+图论
+
+	网络流：dinic 费用流                 lzt
+	最短路：spfa dijkstra floyd                 lzt
+	最小生成树：kruscal prim
+	K短路
+	强连通分量 割边 割点
+	极大团搜索
+	匈牙利算法                 lzt
+	2-SAT                 lzt
+	LCA                 lzt
+	matrix-tree定理
+	差分约束
+	树的直径
+	树同构                 lzt
+	图同构
+
+数论
+
+	//矩阵
+	//欧几里得 扩展欧几里得
+	//单变元模线性方程
+	//中国剩余定理
+	//原根
+	//线性筛
+	//欧拉函数
+	//莫比乌斯函数
+	//高精度
+	//快速幂
+	//FFT NTT FWT
+	//高斯消元 行列式 异或方程组
+	//BSGS exBSGS
+	//polya
+	//burnside引理
+	//拉格朗日插值法
+	卡特兰数                 lzt
+	约数个数/和定理                 lzt
+	递推组合数                 lzt
+	线性基???
+
+字符串
+
+	//kmp                 lzt
+	后缀数组                 lzt
+	//ac自动机
+	//后缀自动机
+	//回文自动机
+	//最小表示法
+	扩展kmp
+	Trie
+	manature                 lzt
+	哈希
+	KM
+	hungry
+	
+数据结构
+	线段树                 lzt
+	树状数组（二维）
+	//Splay
+	//LCT
+	树链剖分                 lzt
+	分块                 lzt
+	并查集
+	可并堆（左偏树）
+	主席树（树状数组套主席树）                 lzt
+	可持久化Trie                 lzt
+	莫队                 lzt
+	树上莫队                 lzt
+	
+计算几何
+
+	凸包                 lzt
+	//半平面交                 lzt
+	旋转卡壳                 lzt
+	//辛普森积分法                 lzt
+	kd-tree                 lzt
+	最小圆覆盖
+	圆的面积并
+	直线交点                 lzt
+	直线与平面的交点                 lzt
+	点到直线距离                 lzt
+	点到平面距离                 lzt
+	旋转向量                 lzt
+	扫描线
+	pick定理
+	平面最近点对                 lzt
+
+其他
+	SG函数（阶梯）
+	点分治                 lzt
+	pb_ds                 lzt
+	rope                 lzt
