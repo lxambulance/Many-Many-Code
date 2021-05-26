@@ -1,0 +1,16 @@
+int i=1000007;
+main()
+{
+	int j=2;
+	while (j<i) {
+		if (i==i/j*j) {
+			print("while ",j,"\n");
+		}
+		j=j+1;
+	}
+	for (j=2;j<i;j=j+1) {
+		if (i==i/j*j) {
+			print("for ",j,"\n");
+		}
+	}
+}

@@ -1,0 +1,27 @@
+int i=5,j=4,k=3,l=2,m=1;
+main(x)
+{
+	int i=20,j=i+2;
+	print(i!=j);
+	print(i<=j);
+	print(i);
+	print("\n");
+	k=4*i--3;
+	l=i<=10;
+	m=i*int;
+	print("i=",i,"\n"); 
+	print("j=",j,"\n"); 
+	print("k=",k,"\n"); 
+	print("l=",l,"\n"); 
+	print("m=",m,"\n"); 
+	print("func=",func(3*5,100/2),"\n");
+}
+func(x,y)
+{
+	int ret=0;
+	while (x<y) {
+		ret=ret+x;
+		x=x+1;
+	}
+	return ret;
+}

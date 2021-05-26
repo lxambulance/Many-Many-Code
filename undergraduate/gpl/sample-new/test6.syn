@@ -1,0 +1,177 @@
+program──FDL┬─FDL┬─FDL──FD──declaration┬─INT
+            │    │                     ├─VL┬─VL┬─VL┬─VL┬─VL──IDENTIFIER──i
+            │    │                     │   │   │   │   ├─,
+            │    │                     │   │   │   │   ├─IDENTIFIER──j
+            │    │                     │   │   │   │   ├─=
+            │    │                     │   │   │   │   └─expression──INTEGER──4
+            │    │                     │   │   │   ├─,
+            │    │                     │   │   │   ├─IDENTIFIER──k
+            │    │                     │   │   │   ├─=
+            │    │                     │   │   │   └─expression──INTEGER──3
+            │    │                     │   │   ├─,
+            │    │                     │   │   ├─IDENTIFIER──l
+            │    │                     │   │   ├─=
+            │    │                     │   │   └─expression──INTEGER──2
+            │    │                     │   ├─,
+            │    │                     │   ├─IDENTIFIER──m
+            │    │                     │   ├─=
+            │    │                     │   └─expression──INTEGER──1
+            │    │                     └─;
+            │    └─FD──function┬─FH──IDENTIFIER──main
+            │                  ├─(
+            │                  ├─PL──IDENTIFIER──i
+            │                  ├─)
+            │                  └─block┬─{
+            │                         ├─SL┬─SL┬─SL┬─SL┬─SL┬─SL┬─SL┬─SL┬─SL┬─SL┬─SL┬─SL┬─SL──statement┬─PTS┬─PRINT
+            │                         │   │   │   │   │   │   │   │   │   │   │   │   │              │    ├─(
+            │                         │   │   │   │   │   │   │   │   │   │   │   │   │              │    ├─print_list──print_item──expression┬─expression──IDENTIFIER──i
+            │                         │   │   │   │   │   │   │   │   │   │   │   │   │              │    │                                   ├─!=
+            │                         │   │   │   │   │   │   │   │   │   │   │   │   │              │    │                                   └─expression──IDENTIFIER──j
+            │                         │   │   │   │   │   │   │   │   │   │   │   │   │              │    └─)
+            │                         │   │   │   │   │   │   │   │   │   │   │   │   │              └─;
+            │                         │   │   │   │   │   │   │   │   │   │   │   │   └─statement┬─PTS┬─PRINT
+            │                         │   │   │   │   │   │   │   │   │   │   │   │              │    ├─(
+            │                         │   │   │   │   │   │   │   │   │   │   │   │              │    ├─print_list──print_item──expression┬─expression──IDENTIFIER──i
+            │                         │   │   │   │   │   │   │   │   │   │   │   │              │    │                                   ├─<=
+            │                         │   │   │   │   │   │   │   │   │   │   │   │              │    │                                   └─expression──IDENTIFIER──j
+            │                         │   │   │   │   │   │   │   │   │   │   │   │              │    └─)
+            │                         │   │   │   │   │   │   │   │   │   │   │   │              └─;
+            │                         │   │   │   │   │   │   │   │   │   │   │   └─statement┬─PTS┬─PRINT
+            │                         │   │   │   │   │   │   │   │   │   │   │              │    ├─(
+            │                         │   │   │   │   │   │   │   │   │   │   │              │    ├─print_list──print_item──expression──IDENTIFIER──i
+            │                         │   │   │   │   │   │   │   │   │   │   │              │    └─)
+            │                         │   │   │   │   │   │   │   │   │   │   │              └─;
+            │                         │   │   │   │   │   │   │   │   │   │   └─statement┬─PTS┬─PRINT
+            │                         │   │   │   │   │   │   │   │   │   │              │    ├─(
+            │                         │   │   │   │   │   │   │   │   │   │              │    ├─print_list──print_item──TEXT──"\n"
+            │                         │   │   │   │   │   │   │   │   │   │              │    └─)
+            │                         │   │   │   │   │   │   │   │   │   │              └─;
+            │                         │   │   │   │   │   │   │   │   │   └─statement┬─AS┬─IDENTIFIER──k
+            │                         │   │   │   │   │   │   │   │   │              │   ├─=
+            │                         │   │   │   │   │   │   │   │   │              │   └─expression┬─expression┬─expression──INTEGER──4
+            │                         │   │   │   │   │   │   │   │   │              │               │           ├─*
+            │                         │   │   │   │   │   │   │   │   │              │               │           └─expression──IDENTIFIER──i
+            │                         │   │   │   │   │   │   │   │   │              │               ├─-
+            │                         │   │   │   │   │   │   │   │   │              │               └─expression┬─-
+            │                         │   │   │   │   │   │   │   │   │              │                           └─expression──INTEGER──3
+            │                         │   │   │   │   │   │   │   │   │              └─;
+            │                         │   │   │   │   │   │   │   │   └─statement┬─AS┬─IDENTIFIER──l
+            │                         │   │   │   │   │   │   │   │              │   ├─=
+            │                         │   │   │   │   │   │   │   │              │   └─expression┬─expression──IDENTIFIER──i
+            │                         │   │   │   │   │   │   │   │              │               ├─<=
+            │                         │   │   │   │   │   │   │   │              │               └─expression──INTEGER──10
+            │                         │   │   │   │   │   │   │   │              └─;
+            │                         │   │   │   │   │   │   │   └─statement┬─AS┬─IDENTIFIER──m
+            │                         │   │   │   │   │   │   │              │   ├─=
+            │                         │   │   │   │   │   │   │              │   └─expression┬─expression──IDENTIFIER──i
+            │                         │   │   │   │   │   │   │              │               ├─/
+            │                         │   │   │   │   │   │   │              │               └─expression──INTEGER──2
+            │                         │   │   │   │   │   │   │              └─;
+            │                         │   │   │   │   │   │   └─statement┬─PTS┬─PRINT
+            │                         │   │   │   │   │   │              │    ├─(
+            │                         │   │   │   │   │   │              │    ├─print_list┬─print_list┬─print_list──print_item──TEXT──"i="
+            │                         │   │   │   │   │   │              │    │           │           ├─,
+            │                         │   │   │   │   │   │              │    │           │           └─print_item──expression──IDENTIFIER──i
+            │                         │   │   │   │   │   │              │    │           ├─,
+            │                         │   │   │   │   │   │              │    │           └─print_item──TEXT──"\n"
+            │                         │   │   │   │   │   │              │    └─)
+            │                         │   │   │   │   │   │              └─;
+            │                         │   │   │   │   │   └─statement┬─PTS┬─PRINT
+            │                         │   │   │   │   │              │    ├─(
+            │                         │   │   │   │   │              │    ├─print_list┬─print_list┬─print_list──print_item──TEXT──"j="
+            │                         │   │   │   │   │              │    │           │           ├─,
+            │                         │   │   │   │   │              │    │           │           └─print_item──expression──IDENTIFIER──j
+            │                         │   │   │   │   │              │    │           ├─,
+            │                         │   │   │   │   │              │    │           └─print_item──TEXT──"\n"
+            │                         │   │   │   │   │              │    └─)
+            │                         │   │   │   │   │              └─;
+            │                         │   │   │   │   └─statement┬─PTS┬─PRINT
+            │                         │   │   │   │              │    ├─(
+            │                         │   │   │   │              │    ├─print_list┬─print_list┬─print_list──print_item──TEXT──"k="
+            │                         │   │   │   │              │    │           │           ├─,
+            │                         │   │   │   │              │    │           │           └─print_item──expression──IDENTIFIER──k
+            │                         │   │   │   │              │    │           ├─,
+            │                         │   │   │   │              │    │           └─print_item──TEXT──"\n"
+            │                         │   │   │   │              │    └─)
+            │                         │   │   │   │              └─;
+            │                         │   │   │   └─statement┬─PTS┬─PRINT
+            │                         │   │   │              │    ├─(
+            │                         │   │   │              │    ├─print_list┬─print_list┬─print_list──print_item──TEXT──"l="
+            │                         │   │   │              │    │           │           ├─,
+            │                         │   │   │              │    │           │           └─print_item──expression──IDENTIFIER──l
+            │                         │   │   │              │    │           ├─,
+            │                         │   │   │              │    │           └─print_item──TEXT──"\n"
+            │                         │   │   │              │    └─)
+            │                         │   │   │              └─;
+            │                         │   │   └─statement┬─PTS┬─PRINT
+            │                         │   │              │    ├─(
+            │                         │   │              │    ├─print_list┬─print_list┬─print_list──print_item──TEXT──"m="
+            │                         │   │              │    │           │           ├─,
+            │                         │   │              │    │           │           └─print_item──expression──IDENTIFIER──m
+            │                         │   │              │    │           ├─,
+            │                         │   │              │    │           └─print_item──TEXT──"\n"
+            │                         │   │              │    └─)
+            │                         │   │              └─;
+            │                         │   └─statement┬─PTS┬─PRINT
+            │                         │              │    ├─(
+            │                         │              │    ├─print_list┬─print_list┬─print_list──print_item──TEXT──"func="
+            │                         │              │    │           │           ├─,
+            │                         │              │    │           │           └─print_item──expression──call_expression┬─IDENTIFIER──func
+            │                         │              │    │           │                                                    ├─(
+            │                         │              │    │           │                                                    ├─AL──EL┬─EL──expression┬─expression──INTEGER──3
+            │                         │              │    │           │                                                    │       │               ├─*
+            │                         │              │    │           │                                                    │       │               └─expression──INTEGER──5
+            │                         │              │    │           │                                                    │       ├─,
+            │                         │              │    │           │                                                    │       └─expression┬─expression──INTEGER──100
+            │                         │              │    │           │                                                    │                   ├─/
+            │                         │              │    │           │                                                    │                   └─expression──INTEGER──2
+            │                         │              │    │           │                                                    └─)
+            │                         │              │    │           ├─,
+            │                         │              │    │           └─print_item──TEXT──"\n"
+            │                         │              │    └─)
+            │                         │              └─;
+            │                         └─}
+            └─FD──function┬─FH──IDENTIFIER──func
+                          ├─(
+                          ├─PL┬─PL──IDENTIFIER──x
+                          │   ├─,
+                          │   └─IDENTIFIER──y
+                          ├─)
+                          └─block┬─{
+                                 ├─DL──declaration┬─INT
+                                 │                ├─VL┬─IDENTIFIER──ret
+                                 │                │   ├─=
+                                 │                │   └─expression──INTEGER──0
+                                 │                └─;
+                                 ├─SL┬─SL──statement──for_statement┬─FOR
+                                 │   │                             ├─(
+                                 │   │                             ├─PMS──AS┬─IDENTIFIER──ret
+                                 │   │                             │        ├─=
+                                 │   │                             │        └─expression┬─expression──IDENTIFIER──ret
+                                 │   │                             │                    ├─+
+                                 │   │                             │                    └─expression──INTEGER──1
+                                 │   │                             ├─;
+                                 │   │                             ├─expression┬─expression──IDENTIFIER──ret
+                                 │   │                             │           ├─<
+                                 │   │                             │           └─expression┬─expression──IDENTIFIER──x
+                                 │   │                             │                       ├─*
+                                 │   │                             │                       └─expression──IDENTIFIER──y
+                                 │   │                             ├─;
+                                 │   │                             ├─PMS──AS┬─IDENTIFIER──ret
+                                 │   │                             │        ├─=
+                                 │   │                             │        └─expression┬─expression──IDENTIFIER──ret
+                                 │   │                             │                    ├─-
+                                 │   │                             │                    └─expression──INTEGER──1
+                                 │   │                             ├─)
+                                 │   │                             └─block┬─{
+                                 │   │                                    ├─SL──statement┬─AS┬─IDENTIFIER──ret
+                                 │   │                                    │              │   ├─=
+                                 │   │                                    │              │   └─expression┬─expression──IDENTIFIER──ret
+                                 │   │                                    │              │               ├─+
+                                 │   │                                    │              │               └─expression──IDENTIFIER──y
+                                 │   │                                    │              └─;
+                                 │   │                                    └─}
+                                 │   └─statement┬─return_statement┬─RETURN
+                                 │              │                 └─expression──IDENTIFIER──ret
+                                 │              └─;
+                                 └─}

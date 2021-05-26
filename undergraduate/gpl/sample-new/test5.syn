@@ -1,0 +1,161 @@
+program──FDL┬─FDL┬─FDL──FD──declaration┬─INT
+            │    │                     ├─VL┬─IDENTIFIER──i
+            │    │                     │   ├─=
+            │    │                     │   └─expression┬─expression┬─expression┬─expression──INTEGER──3
+            │    │                     │               │           │           ├─*
+            │    │                     │               │           │           └─expression──INTEGER──5
+            │    │                     │               │           ├─*
+            │    │                     │               │           └─expression──INTEGER──7
+            │    │                     │               ├─*
+            │    │                     │               └─expression──INTEGER──39223
+            │    │                     └─;
+            │    └─FD──function┬─FH──IDENTIFIER──main
+            │                  ├─(
+            │                  ├─)
+            │                  └─block┬─{
+            │                         ├─DL──declaration┬─INT
+            │                         │                ├─VL──IDENTIFIER──j
+            │                         │                └─;
+            │                         ├─SL┬─SL──statement──for_statement┬─FOR
+            │                         │   │                             ├─(
+            │                         │   │                             ├─PMS──AS┬─IDENTIFIER──j
+            │                         │   │                             │        ├─=
+            │                         │   │                             │        └─expression──INTEGER──2
+            │                         │   │                             ├─;
+            │                         │   │                             ├─expression┬─expression┬─expression──IDENTIFIER──j
+            │                         │   │                             │           │           ├─*
+            │                         │   │                             │           │           └─expression──IDENTIFIER──j
+            │                         │   │                             │           ├─<
+            │                         │   │                             │           └─expression──IDENTIFIER──i
+            │                         │   │                             ├─;
+            │                         │   │                             ├─PMS──AS┬─IDENTIFIER──j
+            │                         │   │                             │        ├─=
+            │                         │   │                             │        └─expression┬─expression──IDENTIFIER──j
+            │                         │   │                             │                    ├─+
+            │                         │   │                             │                    └─expression──INTEGER──1
+            │                         │   │                             ├─)
+            │                         │   │                             └─block┬─{
+            │                         │   │                                    ├─SL──statement──if_statement┬─IF
+            │                         │   │                                    │                            ├─(
+            │                         │   │                                    │                            ├─expression┬─expression──IDENTIFIER──i
+            │                         │   │                                    │                            │           ├─==
+            │                         │   │                                    │                            │           └─expression┬─expression┬─expression──IDENTIFIER──i
+            │                         │   │                                    │                            │                       │           ├─/
+            │                         │   │                                    │                            │                       │           └─expression──IDENTIFIER──j
+            │                         │   │                                    │                            │                       ├─*
+            │                         │   │                                    │                            │                       └─expression──IDENTIFIER──j
+            │                         │   │                                    │                            ├─)
+            │                         │   │                                    │                            └─block┬─{
+            │                         │   │                                    │                                   ├─SL┬─SL┬─SL──statement┬─PTS┬─PRINT
+            │                         │   │                                    │                                   │   │   │              │    ├─(
+            │                         │   │                                    │                                   │   │   │              │    ├─print_list┬─print_list──print_item──TEXT──"x="
+            │                         │   │                                    │                                   │   │   │              │    │           ├─,
+            │                         │   │                                    │                                   │   │   │              │    │           └─print_item──expression──IDENTIFIER──j
+            │                         │   │                                    │                                   │   │   │              │    └─)
+            │                         │   │                                    │                                   │   │   │              └─;
+            │                         │   │                                    │                                   │   │   └─statement┬─PTS┬─PRINT
+            │                         │   │                                    │                                   │   │              │    ├─(
+            │                         │   │                                    │                                   │   │              │    ├─print_list┬─print_list┬─print_list┬─print_list┬─print_list──print_item──TEXT──"func("
+            │                         │   │                                    │                                   │   │              │    │           │           │           │           ├─,
+            │                         │   │                                    │                                   │   │              │    │           │           │           │           └─print_item──expression──IDENTIFIER──j
+            │                         │   │                                    │                                   │   │              │    │           │           │           ├─,
+            │                         │   │                                    │                                   │   │              │    │           │           │           └─print_item──TEXT──")="
+            │                         │   │                                    │                                   │   │              │    │           │           ├─,
+            │                         │   │                                    │                                   │   │              │    │           │           └─print_item──expression──call_expression┬─IDENTIFIER──func
+            │                         │   │                                    │                                   │   │              │    │           │                                                    ├─(
+            │                         │   │                                    │                                   │   │              │    │           │                                                    ├─AL──EL──expression──IDENTIFIER──j
+            │                         │   │                                    │                                   │   │              │    │           │                                                    └─)
+            │                         │   │                                    │                                   │   │              │    │           ├─,
+            │                         │   │                                    │                                   │   │              │    │           └─print_item──TEXT──"\n"
+            │                         │   │                                    │                                   │   │              │    └─)
+            │                         │   │                                    │                                   │   │              └─;
+            │                         │   │                                    │                                   │   └─statement──while_statement┬─WHILE
+            │                         │   │                                    │                                   │                               ├─(
+            │                         │   │                                    │                                   │                               ├─expression┬─expression──IDENTIFIER──i
+            │                         │   │                                    │                                   │                               │           ├─==
+            │                         │   │                                    │                                   │                               │           └─expression┬─expression┬─expression──IDENTIFIER──i
+            │                         │   │                                    │                                   │                               │                       │           ├─/
+            │                         │   │                                    │                                   │                               │                       │           └─expression──IDENTIFIER──j
+            │                         │   │                                    │                                   │                               │                       ├─*
+            │                         │   │                                    │                                   │                               │                       └─expression──IDENTIFIER──j
+            │                         │   │                                    │                                   │                               ├─)
+            │                         │   │                                    │                                   │                               └─block┬─{
+            │                         │   │                                    │                                   │                                      ├─SL──statement┬─AS┬─IDENTIFIER──i
+            │                         │   │                                    │                                   │                                      │              │   ├─=
+            │                         │   │                                    │                                   │                                      │              │   └─expression┬─expression──IDENTIFIER──i
+            │                         │   │                                    │                                   │                                      │              │               ├─/
+            │                         │   │                                    │                                   │                                      │              │               └─expression──IDENTIFIER──j
+            │                         │   │                                    │                                   │                                      │              └─;
+            │                         │   │                                    │                                   │                                      └─}
+            │                         │   │                                    │                                   └─}
+            │                         │   │                                    └─}
+            │                         │   └─statement──if_statement┬─IF
+            │                         │                            ├─(
+            │                         │                            ├─expression┬─expression──IDENTIFIER──i
+            │                         │                            │           ├─>
+            │                         │                            │           └─expression──INTEGER──1
+            │                         │                            ├─)
+            │                         │                            └─block┬─{
+            │                         │                                   ├─SL┬─SL──statement┬─PTS┬─PRINT
+            │                         │                                   │   │              │    ├─(
+            │                         │                                   │   │              │    ├─print_list┬─print_list──print_item──TEXT──"x="
+            │                         │                                   │   │              │    │           ├─,
+            │                         │                                   │   │              │    │           └─print_item──expression──IDENTIFIER──i
+            │                         │                                   │   │              │    └─)
+            │                         │                                   │   │              └─;
+            │                         │                                   │   └─statement┬─PTS┬─PRINT
+            │                         │                                   │              │    ├─(
+            │                         │                                   │              │    ├─print_list┬─print_list┬─print_list┬─print_list┬─print_list──print_item──TEXT──"func("
+            │                         │                                   │              │    │           │           │           │           ├─,
+            │                         │                                   │              │    │           │           │           │           └─print_item──expression──IDENTIFIER──i
+            │                         │                                   │              │    │           │           │           ├─,
+            │                         │                                   │              │    │           │           │           └─print_item──TEXT──")="
+            │                         │                                   │              │    │           │           ├─,
+            │                         │                                   │              │    │           │           └─print_item──expression──call_expression┬─IDENTIFIER──func
+            │                         │                                   │              │    │           │                                                    ├─(
+            │                         │                                   │              │    │           │                                                    ├─AL──EL──expression──IDENTIFIER──i
+            │                         │                                   │              │    │           │                                                    └─)
+            │                         │                                   │              │    │           ├─,
+            │                         │                                   │              │    │           └─print_item──TEXT──"\n"
+            │                         │                                   │              │    └─)
+            │                         │                                   │              └─;
+            │                         │                                   └─}
+            │                         └─}
+            └─FD──function┬─FH──IDENTIFIER──func
+                          ├─(
+                          ├─PL──IDENTIFIER──x
+                          ├─)
+                          └─block┬─{
+                                 ├─DL──declaration┬─INT
+                                 │                ├─VL┬─VL┬─IDENTIFIER──i
+                                 │                │   │   ├─=
+                                 │                │   │   └─expression──INTEGER──1
+                                 │                │   ├─,
+                                 │                │   ├─IDENTIFIER──ret
+                                 │                │   ├─=
+                                 │                │   └─expression──INTEGER──0
+                                 │                └─;
+                                 ├─SL┬─SL──statement──while_statement┬─WHILE
+                                 │   │                               ├─(
+                                 │   │                               ├─expression┬─expression──IDENTIFIER──i
+                                 │   │                               │           ├─<=
+                                 │   │                               │           └─expression──IDENTIFIER──x
+                                 │   │                               ├─)
+                                 │   │                               └─block┬─{
+                                 │   │                                      ├─SL┬─SL──statement┬─AS┬─IDENTIFIER──ret
+                                 │   │                                      │   │              │   ├─=
+                                 │   │                                      │   │              │   └─expression┬─expression──IDENTIFIER──ret
+                                 │   │                                      │   │              │               ├─+
+                                 │   │                                      │   │              │               └─expression──IDENTIFIER──i
+                                 │   │                                      │   │              └─;
+                                 │   │                                      │   └─statement┬─AS┬─IDENTIFIER──i
+                                 │   │                                      │              │   ├─=
+                                 │   │                                      │              │   └─expression┬─expression──IDENTIFIER──i
+                                 │   │                                      │              │               ├─+
+                                 │   │                                      │              │               └─expression──INTEGER──1
+                                 │   │                                      │              └─;
+                                 │   │                                      └─}
+                                 │   └─statement┬─return_statement┬─RETURN
+                                 │              │                 └─expression──IDENTIFIER──ret
+                                 │              └─;
+                                 └─}

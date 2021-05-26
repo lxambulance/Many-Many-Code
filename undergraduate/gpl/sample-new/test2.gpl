@@ -1,0 +1,12 @@
+int n=0,m=0;
+main()
+{
+	for (n=1;n<10;n=n+1) {
+		print(n,"hello","\n");
+	}
+	while (m<5) {
+		m=m+1;
+		m=m*m;
+	}
+	print(m);
+}

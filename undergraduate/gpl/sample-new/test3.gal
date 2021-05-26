@@ -1,0 +1,439 @@
+	# head
+	LOD R2,STACK
+	LOD R4,0
+	STO (R2+4),R4
+	STO (R2),EXIT
+	LOD R2,R2+8
+
+	# var n
+
+	# n = 0
+	LOD R5,0
+
+	# var m
+
+	# m = 0
+	LOD R6,0
+
+	# label main
+	LOD R4,STATIC
+	STO (R4+0),R5
+	LOD R4,STATIC
+	STO (R4+4),R6
+main:
+
+	# begin
+
+	# var x
+
+	# x = 1381
+	LOD R5,1381
+
+	# var y
+
+	# y = 1482
+	LOD R6,1482
+
+	# n = 1
+	LOD R7,1
+
+	# label L3
+	STO (R2+0),R5
+	STO (R2+4),R6
+	LOD R4,STATIC
+	STO (R4+0),R7
+L3:
+
+	# var t0
+
+	# t0 = (n < 10)
+	LOD R4,STATIC
+	LOD R5,(R4+0)
+	LOD R6,10
+	SUB R5,R6
+	TST R5
+	LOD R3,R1+40
+	JLZ R3
+	LOD R5,0
+	LOD R3,R1+24
+	JMP R3
+	LOD R5,1
+
+	# ifz t0 goto L4
+	STO (R2+8),R5
+	TST R5
+	JEZ L4
+
+	# actual n
+	LOD R4,STATIC
+	LOD R7,(R4+0)
+	STO (R2+20),R7
+
+	# call PRINTN
+	STO (R2+16),R2
+	LOD R4,R1+32
+	STO (R2+12),R4
+	LOD R2,R2+24
+	JMP PRINTN
+
+	# actual L1
+	LOD R5,L1
+	STO (R2+20),R5
+
+	# call PRINTS
+	STO (R2+16),R2
+	LOD R4,R1+32
+	STO (R2+12),R4
+	LOD R2,R2+24
+	JMP PRINTS
+
+	# actual L2
+	LOD R5,L2
+	STO (R2+20),R5
+
+	# call PRINTS
+	STO (R2+16),R2
+	LOD R4,R1+32
+	STO (R2+12),R4
+	LOD R2,R2+24
+	JMP PRINTS
+
+	# var t1
+
+	# t1 = n + 1
+	LOD R4,STATIC
+	LOD R5,(R4+0)
+	LOD R6,1
+	ADD R5,R6
+
+	# n = t1
+	STO (R2+12),R5
+
+	# goto L3
+	LOD R4,STATIC
+	STO (R4+0),R5
+	JMP L3
+
+	# label L4
+L4:
+
+	# label L5
+L5:
+
+	# var t2
+
+	# t2 = (m < 5)
+	LOD R4,STATIC
+	LOD R5,(R4+4)
+	LOD R6,5
+	SUB R5,R6
+	TST R5
+	LOD R3,R1+40
+	JLZ R3
+	LOD R5,0
+	LOD R3,R1+24
+	JMP R3
+	LOD R5,1
+
+	# ifz t2 goto L6
+	STO (R2+16),R5
+	TST R5
+	JEZ L6
+
+	# var t3
+
+	# t3 = m + 1
+	LOD R4,STATIC
+	LOD R7,(R4+4)
+	LOD R8,1
+	ADD R7,R8
+
+	# m = t3
+	STO (R2+20),R7
+
+	# var t4
+
+	# t4 = m * m
+	LOD R4,STATIC
+	STO (R4+4),R7
+	MUL R7,R7
+
+	# m = t4
+	STO (R2+24),R7
+
+	# goto L5
+	LOD R4,STATIC
+	STO (R4+4),R7
+	JMP L5
+
+	# label L6
+L6:
+
+	# actual m
+	LOD R4,STATIC
+	LOD R5,(R4+4)
+	STO (R2+36),R5
+
+	# call PRINTN
+	STO (R2+32),R2
+	LOD R4,R1+32
+	STO (R2+28),R4
+	LOD R2,R2+40
+	JMP PRINTN
+
+	# var t5
+
+	# actual x
+	LOD R5,(R2+0)
+	STO (R2+40),R5
+
+	# actual y
+	LOD R6,(R2+4)
+	STO (R2+44),R6
+
+	# t5 = call gcd
+	STO (R2+36),R2
+	LOD R4,R1+32
+	STO (R2+32),R4
+	LOD R2,R2+48
+	JMP gcd
+
+	# x = t5
+	LOD R5,R4
+
+	# actual x
+	STO (R2+0),R5
+	STO (R2+40),R5
+
+	# call PRINTN
+	STO (R2+36),R2
+	LOD R4,R1+32
+	STO (R2+32),R4
+	LOD R2,R2+44
+	JMP PRINTN
+
+	# end
+	LOD R3,(R2-8)
+	LOD R2,(R2-4)
+	JMP R3
+
+	# label gcd
+gcd:
+
+	# begin
+
+	# formal y
+
+	# formal x
+
+	# var z
+
+	# var t6
+
+	# t6 = (x == 0)
+	LOD R5,(R2-8)
+	LOD R6,0
+	SUB R5,R6
+	TST R5
+	LOD R3,R1+40
+	JEZ R3
+	LOD R5,0
+	LOD R3,R1+24
+	JMP R3
+	LOD R5,1
+
+	# ifz t6 goto L7
+	STO (R2+4),R5
+	TST R5
+	JEZ L7
+
+	# return y
+	LOD R4,(R2-4)
+	LOD R3,(R2-16)
+	LOD R2,(R2-12)
+	JMP R3
+
+	# label L7
+L7:
+
+	# var t7
+
+	# t7 = (y == 0)
+	LOD R5,(R2-4)
+	LOD R6,0
+	SUB R5,R6
+	TST R5
+	LOD R3,R1+40
+	JEZ R3
+	LOD R5,0
+	LOD R3,R1+24
+	JMP R3
+	LOD R5,1
+
+	# ifz t7 goto L8
+	STO (R2+8),R5
+	TST R5
+	JEZ L8
+
+	# return x
+	LOD R4,(R2-8)
+	LOD R3,(R2-16)
+	LOD R2,(R2-12)
+	JMP R3
+
+	# label L8
+L8:
+
+	# var t8
+
+	# t8 = (x > y)
+	LOD R5,(R2-8)
+	LOD R6,(R2-4)
+	SUB R5,R6
+	TST R5
+	LOD R3,R1+40
+	JGZ R3
+	LOD R5,0
+	LOD R3,R1+24
+	JMP R3
+	LOD R5,1
+
+	# ifz t8 goto L9
+	STO (R2+12),R5
+	TST R5
+	JEZ L9
+
+	# var t9
+
+	# t9 = x - y
+	LOD R7,(R2-8)
+	SUB R7,R6
+
+	# var t10
+
+	# actual t9
+	STO (R2+16),R7
+	STO (R2+32),R7
+
+	# actual y
+	STO (R2+36),R6
+
+	# t10 = call gcd
+	STO (R2+28),R2
+	LOD R4,R1+32
+	STO (R2+24),R4
+	LOD R2,R2+40
+	JMP gcd
+
+	# z = t10
+	LOD R5,R4
+
+	# return z
+	STO (R2+20),R4
+	LOD R4,R5
+	LOD R3,(R2-16)
+	LOD R2,(R2-12)
+	JMP R3
+
+	# label L9
+L9:
+
+	# var t11
+
+	# t11 = y - x
+	LOD R5,(R2-4)
+	LOD R6,(R2-8)
+	SUB R5,R6
+
+	# var t12
+
+	# actual x
+	STO (R2+40),R6
+
+	# actual t11
+	STO (R2+24),R5
+	STO (R2+44),R5
+
+	# t12 = call gcd
+	STO (R2+36),R2
+	LOD R4,R1+32
+	STO (R2+32),R4
+	LOD R2,R2+48
+	JMP gcd
+
+	# z = t12
+	LOD R5,R4
+
+	# return z
+	STO (R2+28),R4
+	LOD R4,R5
+	LOD R3,(R2-16)
+	LOD R2,(R2-12)
+	JMP R3
+
+	# end
+	LOD R3,(R2-16)
+	LOD R2,(R2-12)
+	JMP R3
+
+PRINTN:
+	LOD R7,(R2-4) # 789
+	LOD R15,R7 # 789 
+	DIV R7,10 # 78
+	TST R7
+	JEZ PRINTDIGIT
+	LOD R8,R7 # 78
+	MUL R8,10 # 780
+	SUB R15,R8 # 9
+	STO (R2),R15 # local 9 store
+
+	# out 78
+	STO (R2+12),R7 # actual 78 push
+
+	# call PRINTN
+	STO (R2+8),R2
+	LOD R4,R1+32
+	STO (R2+4),R4
+	LOD R2,R2+16
+	JMP PRINTN
+
+	# out 9
+	LOD R15,(R2) # local 9 
+
+PRINTDIGIT:
+	ADD  R15,48
+	OUT
+
+	# ret
+	LOD R3,(R2-12)
+	LOD R2,(R2-8)
+	JMP R3
+
+PRINTS:
+	LOD R7,(R2-4)
+
+PRINTC:
+	LOD R15,(R7)
+	DIV R15,16777216
+	TST R15
+	JEZ PRINTSEND
+	OUT
+	ADD R7,1
+	JMP PRINTC
+
+PRINTSEND:
+	# ret
+	LOD R3,(R2-12)
+	LOD R2,(R2-8)
+	JMP R3
+
+EXIT:
+	END
+
+L2:
+	DBS 10,0
+L1:
+	DBS 104,101,108,108,111,0
+STATIC:
+	DBN 0,8
+STACK:

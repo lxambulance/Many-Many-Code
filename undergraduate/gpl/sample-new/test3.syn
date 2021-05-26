@@ -1,0 +1,158 @@
+program──FDL┬─FDL┬─FDL──FD──declaration┬─INT
+            │    │                     ├─VL┬─VL┬─IDENTIFIER──n
+            │    │                     │   │   ├─=
+            │    │                     │   │   └─expression──INTEGER──0
+            │    │                     │   ├─,
+            │    │                     │   ├─IDENTIFIER──m
+            │    │                     │   ├─=
+            │    │                     │   └─expression──INTEGER──0
+            │    │                     └─;
+            │    └─FD──function┬─FH──IDENTIFIER──main
+            │                  ├─(
+            │                  ├─)
+            │                  └─block┬─{
+            │                         ├─DL──declaration┬─INT
+            │                         │                ├─VL┬─VL┬─IDENTIFIER──x
+            │                         │                │   │   ├─=
+            │                         │                │   │   └─expression──INTEGER──1381
+            │                         │                │   ├─,
+            │                         │                │   ├─IDENTIFIER──y
+            │                         │                │   ├─=
+            │                         │                │   └─expression──INTEGER──1482
+            │                         │                └─;
+            │                         ├─SL┬─SL┬─SL┬─SL┬─SL──statement──for_statement┬─FOR
+            │                         │   │   │   │   │                             ├─(
+            │                         │   │   │   │   │                             ├─PMS──AS┬─IDENTIFIER──n
+            │                         │   │   │   │   │                             │        ├─=
+            │                         │   │   │   │   │                             │        └─expression──INTEGER──1
+            │                         │   │   │   │   │                             ├─;
+            │                         │   │   │   │   │                             ├─expression┬─expression──IDENTIFIER──n
+            │                         │   │   │   │   │                             │           ├─<
+            │                         │   │   │   │   │                             │           └─expression──INTEGER──10
+            │                         │   │   │   │   │                             ├─;
+            │                         │   │   │   │   │                             ├─PMS──AS┬─IDENTIFIER──n
+            │                         │   │   │   │   │                             │        ├─=
+            │                         │   │   │   │   │                             │        └─expression┬─expression──IDENTIFIER──n
+            │                         │   │   │   │   │                             │                    ├─+
+            │                         │   │   │   │   │                             │                    └─expression──INTEGER──1
+            │                         │   │   │   │   │                             ├─)
+            │                         │   │   │   │   │                             └─block┬─{
+            │                         │   │   │   │   │                                    ├─SL──statement┬─PTS┬─PRINT
+            │                         │   │   │   │   │                                    │              │    ├─(
+            │                         │   │   │   │   │                                    │              │    ├─print_list┬─print_list┬─print_list──print_item──expression──IDENTIFIER──n
+            │                         │   │   │   │   │                                    │              │    │           │           ├─,
+            │                         │   │   │   │   │                                    │              │    │           │           └─print_item──TEXT──"hello"
+            │                         │   │   │   │   │                                    │              │    │           ├─,
+            │                         │   │   │   │   │                                    │              │    │           └─print_item──TEXT──"\n"
+            │                         │   │   │   │   │                                    │              │    └─)
+            │                         │   │   │   │   │                                    │              └─;
+            │                         │   │   │   │   │                                    └─}
+            │                         │   │   │   │   └─statement──while_statement┬─WHILE
+            │                         │   │   │   │                               ├─(
+            │                         │   │   │   │                               ├─expression┬─expression──IDENTIFIER──m
+            │                         │   │   │   │                               │           ├─<
+            │                         │   │   │   │                               │           └─expression──INTEGER──5
+            │                         │   │   │   │                               ├─)
+            │                         │   │   │   │                               └─block┬─{
+            │                         │   │   │   │                                      ├─SL┬─SL──statement┬─AS┬─IDENTIFIER──m
+            │                         │   │   │   │                                      │   │              │   ├─=
+            │                         │   │   │   │                                      │   │              │   └─expression┬─expression──IDENTIFIER──m
+            │                         │   │   │   │                                      │   │              │               ├─+
+            │                         │   │   │   │                                      │   │              │               └─expression──INTEGER──1
+            │                         │   │   │   │                                      │   │              └─;
+            │                         │   │   │   │                                      │   └─statement┬─AS┬─IDENTIFIER──m
+            │                         │   │   │   │                                      │              │   ├─=
+            │                         │   │   │   │                                      │              │   └─expression┬─expression──IDENTIFIER──m
+            │                         │   │   │   │                                      │              │               ├─*
+            │                         │   │   │   │                                      │              │               └─expression──IDENTIFIER──m
+            │                         │   │   │   │                                      │              └─;
+            │                         │   │   │   │                                      └─}
+            │                         │   │   │   └─statement┬─PTS┬─PRINT
+            │                         │   │   │              │    ├─(
+            │                         │   │   │              │    ├─print_list──print_item──expression──IDENTIFIER──m
+            │                         │   │   │              │    └─)
+            │                         │   │   │              └─;
+            │                         │   │   └─statement┬─AS┬─IDENTIFIER──x
+            │                         │   │              │   ├─=
+            │                         │   │              │   └─expression──call_expression┬─IDENTIFIER──gcd
+            │                         │   │              │                                ├─(
+            │                         │   │              │                                ├─AL──EL┬─EL──expression──IDENTIFIER──x
+            │                         │   │              │                                │       ├─,
+            │                         │   │              │                                │       └─expression──IDENTIFIER──y
+            │                         │   │              │                                └─)
+            │                         │   │              └─;
+            │                         │   └─statement┬─PTS┬─PRINT
+            │                         │              │    ├─(
+            │                         │              │    ├─print_list──print_item──expression──IDENTIFIER──x
+            │                         │              │    └─)
+            │                         │              └─;
+            │                         └─}
+            └─FD──function┬─FH──IDENTIFIER──gcd
+                          ├─(
+                          ├─PL┬─PL──IDENTIFIER──x
+                          │   ├─,
+                          │   └─IDENTIFIER──y
+                          ├─)
+                          └─block┬─{
+                                 ├─DL──declaration┬─INT
+                                 │                ├─VL──IDENTIFIER──z
+                                 │                └─;
+                                 ├─SL┬─SL┬─SL┬─SL┬─SL──statement──if_statement┬─IF
+                                 │   │   │   │   │                            ├─(
+                                 │   │   │   │   │                            ├─expression┬─expression──IDENTIFIER──x
+                                 │   │   │   │   │                            │           ├─==
+                                 │   │   │   │   │                            │           └─expression──INTEGER──0
+                                 │   │   │   │   │                            ├─)
+                                 │   │   │   │   │                            └─block┬─{
+                                 │   │   │   │   │                                   ├─SL──statement┬─return_statement┬─RETURN
+                                 │   │   │   │   │                                   │              │                 └─expression──IDENTIFIER──y
+                                 │   │   │   │   │                                   │              └─;
+                                 │   │   │   │   │                                   └─}
+                                 │   │   │   │   └─statement──if_statement┬─IF
+                                 │   │   │   │                            ├─(
+                                 │   │   │   │                            ├─expression┬─expression──IDENTIFIER──y
+                                 │   │   │   │                            │           ├─==
+                                 │   │   │   │                            │           └─expression──INTEGER──0
+                                 │   │   │   │                            ├─)
+                                 │   │   │   │                            └─block┬─{
+                                 │   │   │   │                                   ├─SL──statement┬─return_statement┬─RETURN
+                                 │   │   │   │                                   │              │                 └─expression──IDENTIFIER──x
+                                 │   │   │   │                                   │              └─;
+                                 │   │   │   │                                   └─}
+                                 │   │   │   └─statement──if_statement┬─IF
+                                 │   │   │                            ├─(
+                                 │   │   │                            ├─expression┬─expression──IDENTIFIER──x
+                                 │   │   │                            │           ├─>
+                                 │   │   │                            │           └─expression──IDENTIFIER──y
+                                 │   │   │                            ├─)
+                                 │   │   │                            └─block┬─{
+                                 │   │   │                                   ├─SL┬─SL──statement┬─AS┬─IDENTIFIER──z
+                                 │   │   │                                   │   │              │   ├─=
+                                 │   │   │                                   │   │              │   └─expression──call_expression┬─IDENTIFIER──gcd
+                                 │   │   │                                   │   │              │                                ├─(
+                                 │   │   │                                   │   │              │                                ├─AL──EL┬─EL──expression┬─expression──IDENTIFIER──x
+                                 │   │   │                                   │   │              │                                │       │               ├─-
+                                 │   │   │                                   │   │              │                                │       │               └─expression──IDENTIFIER──y
+                                 │   │   │                                   │   │              │                                │       ├─,
+                                 │   │   │                                   │   │              │                                │       └─expression──IDENTIFIER──y
+                                 │   │   │                                   │   │              │                                └─)
+                                 │   │   │                                   │   │              └─;
+                                 │   │   │                                   │   └─statement┬─return_statement┬─RETURN
+                                 │   │   │                                   │              │                 └─expression──IDENTIFIER──z
+                                 │   │   │                                   │              └─;
+                                 │   │   │                                   └─}
+                                 │   │   └─statement┬─AS┬─IDENTIFIER──z
+                                 │   │              │   ├─=
+                                 │   │              │   └─expression──call_expression┬─IDENTIFIER──gcd
+                                 │   │              │                                ├─(
+                                 │   │              │                                ├─AL──EL┬─EL──expression──IDENTIFIER──x
+                                 │   │              │                                │       ├─,
+                                 │   │              │                                │       └─expression┬─expression──IDENTIFIER──y
+                                 │   │              │                                │                   ├─-
+                                 │   │              │                                │                   └─expression──IDENTIFIER──x
+                                 │   │              │                                └─)
+                                 │   │              └─;
+                                 │   └─statement┬─return_statement┬─RETURN
+                                 │              │                 └─expression──IDENTIFIER──z
+                                 │              └─;
+                                 └─}

@@ -1,0 +1,66 @@
+program──FDL┬─FDL──FD──declaration┬─INT
+            │                     ├─VL┬─VL┬─IDENTIFIER──n
+            │                     │   │   ├─=
+            │                     │   │   └─expression──INTEGER──0
+            │                     │   ├─,
+            │                     │   ├─IDENTIFIER──m
+            │                     │   ├─=
+            │                     │   └─expression──INTEGER──0
+            │                     └─;
+            └─FD──function┬─FH──IDENTIFIER──main
+                          ├─(
+                          ├─)
+                          └─block┬─{
+                                 ├─SL┬─SL┬─SL──statement──for_statement┬─FOR
+                                 │   │   │                             ├─(
+                                 │   │   │                             ├─PMS──AS┬─IDENTIFIER──n
+                                 │   │   │                             │        ├─=
+                                 │   │   │                             │        └─expression──INTEGER──1
+                                 │   │   │                             ├─;
+                                 │   │   │                             ├─expression┬─expression──IDENTIFIER──n
+                                 │   │   │                             │           ├─<
+                                 │   │   │                             │           └─expression──INTEGER──10
+                                 │   │   │                             ├─;
+                                 │   │   │                             ├─PMS──AS┬─IDENTIFIER──n
+                                 │   │   │                             │        ├─=
+                                 │   │   │                             │        └─expression┬─expression──IDENTIFIER──n
+                                 │   │   │                             │                    ├─+
+                                 │   │   │                             │                    └─expression──INTEGER──1
+                                 │   │   │                             ├─)
+                                 │   │   │                             └─block┬─{
+                                 │   │   │                                    ├─SL──statement┬─PTS┬─PRINT
+                                 │   │   │                                    │              │    ├─(
+                                 │   │   │                                    │              │    ├─print_list┬─print_list┬─print_list──print_item──expression──IDENTIFIER──n
+                                 │   │   │                                    │              │    │           │           ├─,
+                                 │   │   │                                    │              │    │           │           └─print_item──TEXT──"hello"
+                                 │   │   │                                    │              │    │           ├─,
+                                 │   │   │                                    │              │    │           └─print_item──TEXT──"\n"
+                                 │   │   │                                    │              │    └─)
+                                 │   │   │                                    │              └─;
+                                 │   │   │                                    └─}
+                                 │   │   └─statement──while_statement┬─WHILE
+                                 │   │                               ├─(
+                                 │   │                               ├─expression┬─expression──IDENTIFIER──m
+                                 │   │                               │           ├─<
+                                 │   │                               │           └─expression──INTEGER──5
+                                 │   │                               ├─)
+                                 │   │                               └─block┬─{
+                                 │   │                                      ├─SL┬─SL──statement┬─AS┬─IDENTIFIER──m
+                                 │   │                                      │   │              │   ├─=
+                                 │   │                                      │   │              │   └─expression┬─expression──IDENTIFIER──m
+                                 │   │                                      │   │              │               ├─+
+                                 │   │                                      │   │              │               └─expression──INTEGER──1
+                                 │   │                                      │   │              └─;
+                                 │   │                                      │   └─statement┬─AS┬─IDENTIFIER──m
+                                 │   │                                      │              │   ├─=
+                                 │   │                                      │              │   └─expression┬─expression──IDENTIFIER──m
+                                 │   │                                      │              │               ├─*
+                                 │   │                                      │              │               └─expression──IDENTIFIER──m
+                                 │   │                                      │              └─;
+                                 │   │                                      └─}
+                                 │   └─statement┬─PTS┬─PRINT
+                                 │              │    ├─(
+                                 │              │    ├─print_list──print_item──expression──IDENTIFIER──m
+                                 │              │    └─)
+                                 │              └─;
+                                 └─}
