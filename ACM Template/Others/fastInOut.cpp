@@ -1,3 +1,10 @@
+inline int read(){
+	int x=0,f=1; char ch=getchar();
+	while (!isdigit(ch)) { if (ch=='-') f=-1; ch=getchar(); }
+	while (isdigit(ch)) { x=x*10+ch-'0'; ch=getchar(); }
+	return x*f;
+}
+
 const int BUFFER_MAX_SIZE=100000;
 struct Quick_In{
 	char buf[BUFFER_MAX_SIZE],*ps=buf,*pe=buf+1;
